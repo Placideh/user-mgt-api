@@ -40,8 +40,6 @@ public class TaskServiceImpl implements TaskService {
         if ((convertedTask.getStartDate().isAfter(convertedTask.getEndDate())) && (convertedTask.getStartTime().isAfter(convertedTask.getEndTime())))
             throw new CustomInputException("You can only create a task where start time which is not after ending time ");
 
-        if ((convertedTask.getStartDate().equals(convertedTask.getEndDate())) && convertedTask.getStartTime().isAfter(convertedTask.getEndTime()))
-            throw new CustomInputException("You can only Assign task only when start time  is not after ending time ");
 
         Project existingProject = projectRepo.findById(projectId).orElseThrow(()->new NotFoundException("Project with ID:"+projectId+"Not found"));
 

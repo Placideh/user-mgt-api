@@ -40,7 +40,7 @@ public class ProjectController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Map<String, List<Project>>> getTasks(){
         Map<String,List<Project>> message=new HashMap<>();
         List<Project> projects= projectService.getProjects();
