@@ -1,7 +1,6 @@
 package com.placideh.usermgtapi.service.impl;
 
 import com.placideh.usermgtapi.entity.Project;
-import com.placideh.usermgtapi.entity.Task;
 import com.placideh.usermgtapi.exception.NotFoundException;
 import com.placideh.usermgtapi.repository.ProjectRepo;
 import com.placideh.usermgtapi.service.ProjectService;
@@ -21,6 +20,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project createProject(Project project) {
+
+
         return projectRepo.save(project);
     }
 

@@ -21,13 +21,22 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="task_id")
     private Integer id;
+
     @Column(name="title")
     private String title;
+
+    @Column(name="start_time")
+    private LocalTime startTime;
+
+    @Column(name="end_time")
+    private LocalTime endTime;
+
     @Column(name="start_date")
     private LocalDateTime startDate;
 
     @Column(name="end_date")
     private LocalDateTime endDate;
+
     @Column(name = "priority")
     private String priority;
 
@@ -37,5 +46,9 @@ public class Task {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Project project;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
 }

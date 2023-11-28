@@ -1,5 +1,6 @@
 package com.placideh.usermgtapi.controller;
 
+import com.placideh.usermgtapi.Dto.TaskDto;
 import com.placideh.usermgtapi.entity.Task;
 import com.placideh.usermgtapi.service.TaskService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,10 +25,10 @@ public class TaskController {
     }
 
 
-    @PostMapping( value = "/create/{projectId}")
-    public ResponseEntity<Map<String, Task>> createTask(@PathVariable Integer projectId,@Valid @RequestBody Task task) {
+    @PostMapping( value = "/create/{projectId}/user/{userId}")
+    public ResponseEntity<Map<String, Task>> createTask(@Valid @PathVariable Integer projectId,@Valid @PathVariable Integer userId,@Valid @RequestBody TaskDto task) {
         Map<String ,Task> message=new HashMap<>();
-        Task newTask = taskService.createTask(projectId,task);
+        Task newTask = taskService.createTask(projectId,userId,task);
         message.put("success",newTask);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
