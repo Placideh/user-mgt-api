@@ -11,8 +11,12 @@ import com.placideh.usermgtapi.repository.TaskRepo;
 import com.placideh.usermgtapi.repository.UserRepo;
 import com.placideh.usermgtapi.service.TaskService;
 import com.placideh.usermgtapi.utils.CustomDateConverter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayInputStream;
+import java.util.Iterator;
 import java.util.List;
 @Component
 public class TaskServiceImpl implements TaskService {
@@ -61,8 +65,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getTasks() {
-        return taskRepo.findAll();
+    public Iterator<Task> getTasks() {
+        return taskRepo.findAll().iterator();
     }
 
     @Override
@@ -81,4 +85,15 @@ public class TaskServiceImpl implements TaskService {
 
 
     }
+
+    @Override
+    public List<Task> getTaskByPagination(int pageNo, int pageSize) {
+
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
+
+        Page<Task> pagingUser = taskRepo.findAll(pageRequest);
+
+        return pagingUser.getContent();
+    }
+
 }

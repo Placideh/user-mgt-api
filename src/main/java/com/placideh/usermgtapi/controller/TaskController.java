@@ -4,12 +4,14 @@ import com.placideh.usermgtapi.Dto.TaskDto;
 import com.placideh.usermgtapi.entity.Task;
 import com.placideh.usermgtapi.service.TaskService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,9 +44,9 @@ public class TaskController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, List<Task>>> getTasks(){
-        Map<String,List<Task>> message=new HashMap<>();
-        List<Task> tasks= taskService.getTasks();
+    public ResponseEntity<Map<String, Iterator<Task>>> getTasks(){
+        Map<String,Iterator<Task>> message=new HashMap<>();
+        Iterator<Task> tasks= taskService.getTasks();
         message.put("success",tasks);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -59,6 +61,13 @@ public class TaskController {
     public ResponseEntity<Task> removeTaskById(@PathVariable Integer id){
         Task deletedTask =taskService.deleteTaskById(id);
         return new ResponseEntity<>(deletedTask,HttpStatus.OK);
+    }
+
+    @GetMapping("/paginate")
+    public List<Task> getUserWithPaging(@RequestParam(defaultValue = "0") Integer pageNo,
+                                        @RequestParam(defaultValue = "10") Integer pageSize){
+        return taskService.getTaskByPagination(pageNo,pageSize);
+
     }
 
 }
